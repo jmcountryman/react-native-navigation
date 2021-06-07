@@ -37,7 +37,13 @@ const SideMenuLeftScreen: NavigationFunctionComponent<Props> = ({ componentId, m
     };
   }, [componentId]);
 
-  const push = () => Navigation.push('SideMenuCenter', Screens.Pushed);
+  const push = () =>
+    Navigation.push('SideMenuCenter', {
+      component: {
+        id: 'StackRoot1',
+        name: Screens.Pushed,
+      },
+    });
 
   const pushAndClose = () =>
     Navigation.push('SideMenuCenter', {
@@ -52,6 +58,43 @@ const SideMenuLeftScreen: NavigationFunctionComponent<Props> = ({ componentId, m
         },
       },
     });
+
+  const setCenterRoot = () => {
+    Navigation.setStackRoot('SideMenuCenter', [
+      {
+        component: {
+          id: 'StackRoot1',
+          name: Screens.Pushed,
+          passProps: {
+            customProp: 'Custom prop 1',
+          },
+          options: {
+            topBar: {
+              title: {
+                text: `StackRoot 1`,
+              },
+            },
+          },
+        },
+      },
+      {
+        component: {
+          id: 'StackRoot0',
+          name: Screens.Pushed,
+          passProps: {
+            customProp: 'Custom prop top',
+          },
+          options: {
+            topBar: {
+              title: {
+                text: `StackRoot top`,
+              },
+            },
+          },
+        },
+      },
+    ]);
+  };
 
   const close = () =>
     Navigation.mergeOptions(componentId, {
@@ -71,6 +114,7 @@ const SideMenuLeftScreen: NavigationFunctionComponent<Props> = ({ componentId, m
         setWidth(event.nativeEvent.layout.width);
       }}
     >
+      <Button label="Set center stack root" onPress={setCenterRoot} />
       <Button label="Push" testID={LEFT_SIDE_MENU_PUSH_BTN} onPress={push} />
       <Button
         label="Push and Close"

@@ -1,6 +1,6 @@
 import concat from 'lodash/concat';
 import React from 'react';
-import { BackHandler, StyleSheet, View } from 'react-native';
+import { BackHandler, StyleSheet, View, Text } from 'react-native';
 import {
   NavigationButtonPressedEvent,
   NavigationComponent,
@@ -72,6 +72,7 @@ export default class PushedScreen extends NavigationComponent<Props> {
     const stackPosition = this.getStackPosition();
     return (
       <Root componentId={this.props.componentId} footer={`Stack Position: ${stackPosition}`}>
+        <Text>{`All props: ${JSON.stringify(this.props)}`}</Text>
         <View style={styles.container}>
           <Button label="Push" testID={PUSH_BTN} onPress={this.push} marginH-5 />
           <Button label="Pop" testID={POP_BTN} onPress={this.pop} marginH-5 />
